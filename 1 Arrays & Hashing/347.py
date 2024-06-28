@@ -1,13 +1,3 @@
-# class Solution:
-#     def topKFrequent(self, nums, k):
-#         freq_map = {}
-#         for num in nums:
-#             if num in freq_map:
-#                 freq_map[num] += 1
-#             freq_map[num] = 1
-#             sorted_elements = sorted(freq_map, key = lambda x: freq_map[x], reverse = True)
-#         return sorted_elements[:k]
-
 class Solution:
     def topKFrequent(self, nums, k):
         count = {}
@@ -19,14 +9,14 @@ class Solution:
             freq[c].append(n)
         res = []
         for i in range(len(freq) -1, 0, -1):
-            for n in freq[i]:
-                res.append(n)
+            for nc in freq[i]:
+                res.append(nc)
                 if len(res) == k:
                     return res
     
 
 solution = Solution()
 
-print(solution.topKFrequent([1, 1, 1, 2, 2, 3], 2))
+print(solution.topKFrequent([3,4,2,3,3], 2))
 
 
