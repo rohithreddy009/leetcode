@@ -5,22 +5,24 @@ class Solution:
         stack = []
         res = []
 
-        def backtrack(openN, closedN):
-            if openN == closedN == n:
+        def backtrack(opened, closed):
+            if opened == closed == n:
                 res.append("".join(stack))
                 return
 
-            if openN < n:
+            if opened < n:
                 stack.append("(")
-                backtrack(openN + 1, closedN)
+                backtrack(opened + 1, closed)
                 stack.pop()
-            if closedN < openN:
+
+            if closed < opened:
                 stack.append(")")
-                backtrack(openN, closedN + 1)
+                backtrack(opened, closed + 1)
                 stack.pop()
-
-        backtrack(0, 0)
+                
+        backtrack(0,0)
         return res
-
+        
+            
 a = Solution()
-print(a.generateParenthesis(3))
+print(a.generateParenthesis(2))
