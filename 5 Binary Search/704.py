@@ -6,12 +6,12 @@ class Solution:
         while l <= r:
             mid = (l + r) // 2
             if nums[mid] < target:
-                r = mid - 1
-            elif nums[mid] > target:
                 l = mid + 1
+            elif nums[mid] > target:
+                r = mid - 1
             else:
                 return mid
         return -1
     
 a = Solution()
-print(a.search([1,2,3,4,5],3))
+print(a.search([1,4,5,6,9],6))
