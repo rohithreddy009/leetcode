@@ -19,6 +19,5 @@ class Solution:
                 l = k + 1
         return res
 
-
 a = Solution()
 print(a.minEatingSpeed([3,6,7,11],8))
