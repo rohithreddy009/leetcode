@@ -7,16 +7,16 @@ class Solution:
         res = r
 
         while l <= r:
-            k = (l + r) // 2
+            mid = (l + r) // 2
+            hours = 0
 
-            totalTime = 0
-            for p in piles:
-                totalTime += math.ceil(float(p) / k)
-            if totalTime <= h:
-                res = k
-                r = k - 1
+            for i in piles:
+                hours += math.ceil(i / mid)
+            if hours <= h:
+                res = min(res, mid)
+                r = mid - 1
             else:
-                l = k + 1
+                l = mid + 1
         return res
 
 a = Solution()
