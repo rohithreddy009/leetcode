@@ -12,6 +12,16 @@ class Solution:
                 longest = max(length, longest)
         return longest
     
+    def longestConsecutive2(self, nums: List[int]) -> int:
+        sortedList = sorted(nums)
+        res = 0
+        for i in nums:
+            length = 0
+            while i + length in sortedList:
+                length += 1
+            res = max(res, length)
+        return res
+    
 sol = Solution()
 
 print(sol.longestConsecutive([100,4,200,1,3,2]))
