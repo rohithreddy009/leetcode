@@ -22,7 +22,7 @@ class Solution:
 
 solution = Solution()
 
-encoded = solution.encode(["hello"])
+encoded = solution.encode(["neet","code","love","you"])
 print("Encoded:", encoded) 
 
 decoded = solution.decode(encoded)
