@@ -1,17 +1,17 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
-
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
-        prev, curr = None, head
+        prev = None
+        current = head
+        
+        while current:
+            next_node = current.next  # Store the next node
+            current.next = prev       # Reverse the link
+            prev = current            # Move prev to current
+            current = next_node       # Move to the next node in the original list
+        return prev  # prev will be the new head of the reversed list
 
-        while curr:
-            temp = curr.next
-            curr.next = prev
-            prev = curr
-            curr = temp
-        return prev
+
