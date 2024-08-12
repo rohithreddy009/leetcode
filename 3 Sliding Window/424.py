@@ -1,18 +1,16 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        count = {}
-        
         l = 0
-        # maxf = 0
+        hmap = {}
+        res = 0
         for r in range(len(s)):
-            count[s[r]] = 1 + count.get(s[r], 0)
-            # maxf = max(maxf, count[s[r]])
-
-            if (r - l + 1) - max(count.values()) > k:
-                count[s[l]] -= 1
+            hmap[s[r]] = 1 + hmap.get(s[r], 0)
+            if (r - l + 1) - max(hmap.values()) > k:
+                hmap[s[l]] -= 1
                 l += 1
-
-        return (r - l + 1)
+            window_len = r - l + 1
+            res = max(res, window_len)
+        return res
     
 a = Solution()
 print(a.characterReplacement("AABABBA",2))
