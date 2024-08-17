@@ -1,25 +1,40 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
 class Solution:
-    def reorderList(self, head: ListNode) -> None:
-        # find middle
-        slow, fast = head, head.next
-        while fast and fast.next:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        while not head.next or not head.next.next:
+            return
+        
+        # split
+        slow = fast = head
+        while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
+        p2 = slow.next
+        slow.next = None
 
-        # reverse second half
-        second = slow.next
-        prev = slow.next = None
-        while second:
-            tmp = second.next
-            second.next = prev
-            prev = second
-            second = tmp
+        # reverse second part
+        prev = None
+        while p2 and p2.next:
+            temp = p2.next
+            p2.next = prev
+            prev = p2
+            p2 = temp
+        p2.next = prev
 
-        # merge two halfs
-        first, second = head, prev
-        while second:
-            tmp1, tmp2 = first.next, second.next
-            first.next = second
-            second.next = tmp1
-            first, second = tmp1, tmp2
-asdf
+        # merge two lists
+        p1 = head
+        while p1 and p2:
+            p1next = p1.next
+            p2next = p2.next
+            p1.next = p2
+            p2.next = p1next
+            p1 = p1next
+            p2 = p2next
+
+
+ 
+        
