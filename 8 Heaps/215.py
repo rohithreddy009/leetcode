@@ -1,5 +1,5 @@
 from typing import List
-import random
+import heapq
 
 # Solution: Sorting
 # Time Complexity:
@@ -16,19 +16,31 @@ class Solution1:
 # Solution: QuickSelect
 # Time Complexity: O(n)
 # Extra Space Complexity: O(n)
+
 class Solution2:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        pivot = random.choice(nums)
-        left = [num for num in nums if num > pivot]
-        mid = [num for num in nums if num == pivot]
-        right = [num for num in nums if num < pivot]
+        for i in range(len(nums)):
+            nums[i] = -nums[i]
+        
+        heapq.heapify(nums)
 
-        length_left = len(left)
-        length_right = len(right)
-        length_mid = len(mid)
-        if k <= length_left:
-            return self.findKthLargest(left, k)
-        elif k > length_left + length_mid:
-            return self.findKthLargest(right, k - length_mid - length_left)
-        else:
-            return mid[0]
+        for _ in range(k-1):
+            heapq.heappop(nums)
+        
+        return -heapq.heappop(nums)
+
+a = Solution2()
+print(a.findKthLargest([3,2,1,5,6,4],2))
+
+class Solution3:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        minHeap = []
+
+        for i in range(len(nums)):
+            if len(minHeap) < k:
+                heapq.heappush(minHeap, nums[i])
+            else:
+                heapq.heappushpop(minHeap, nums[i])
+                # heapq.heappop(minHeap)
+        
+        return minHeap[0]
