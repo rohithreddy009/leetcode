@@ -4,13 +4,18 @@ from typing import List
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
         minHeap = []
-        for x, y in points:
-            dist = (x ** 2) + (y ** 2)
-            minHeap.append((dist, x, y))
+        for i,j in points:
+            dist = (i ** 2) + (j ** 2)
+            minHeap.append([dist,i,j])
         
         heapq.heapify(minHeap)
         res = []
-        for _ in range(k):
-            _, x, y = heapq.heappop(minHeap)
-            res.append((x, y))
+
+        while k > 0:
+            dist,i,j = heapq.heappop(minHeap)
+            res.append([i,j])
+            k -= 1
         return res
+
+a = Solution()
+print(a.kClosest([[3,3],[5,-1],[-2,4]], 2))
