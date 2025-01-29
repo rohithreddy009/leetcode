@@ -2,25 +2,27 @@ from typing import List
 
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
         candidates.sort()
 
-        res = []
-
-        def backtrack(cur, pos, target):
-            if target == 0:
-                res.append(cur.copy())
+        def comb2(i, curr, total):
+            if total == target:
+                res.append(curr.copy())
                 return
-            if target <= 0:
-                return
+            if i >= len(candidates) or total > target:
+                return 
+            
+            # include candidates[i]
+            curr.append(candidates[i])
+            comb2(i+1, curr, total + candidates[i])
+            curr.pop()
 
-            prev = -1
-            for i in range(pos, len(candidates)):
-                if candidates[i] == prev:
-                    continue
-                cur.append(candidates[i])
-                backtrack(cur, i + 1, target - candidates[i])
-                cur.pop()
-                prev = candidates[i]
-
-        backtrack([], 0, target)
+            # skip candidates[i]
+            while i+1 < len(candidates) and candidates[i] == candidates[i+1]:
+                i += 1
+            comb2(i+1, curr, total)
+        
+        comb2(0,[],0)
         return res
+
+Solution.combinationSum2(Solution(), [2,5,2,1,2], 5)
