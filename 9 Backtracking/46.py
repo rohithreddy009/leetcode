@@ -1,19 +1,29 @@
-from typing import List
-
 class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
+    def permute(self, nums):
+        if len(nums) == 0:
+            return [[]]
+        
+        perms = self.permute(nums[1:])
         res = []
-
-        # base case
-        if len(nums) == 1:
-            return [nums[:]]  # nums[:] is a deep copy
-
-        for i in range(len(nums)):
-            n = nums.pop(0)
-            perms = self.permute(nums)
-
-            for perm in perms:
-                perm.append(n)
-            res.extend(perms)
-            nums.append(n)
+        for p in perms:
+            for i in range(len(p) + 1):
+                p_copy = p.copy()
+                p_copy.insert(i, nums[0])
+                res.append(p_copy)
         return res
+    
+class Solution2:
+    def permute(self, nums):
+        perms = [[]]
+        for num in nums:
+            new_perms = []
+            for p in perms:
+                for i in range(len(p) + 1):
+                    p_copy = p.copy()
+                    p_copy.insert(i, num)
+                    new_perms.append(p_copy)
+            perms = new_perms
+        return perms
+    
+a = Solution2()
+print(a.permute([1,2]))
