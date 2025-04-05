@@ -7,7 +7,7 @@ class Solution:
         COLS = len(grid[0])
         directions = [ (1,0), (-1,0), (0,1), (0,-1)]
         visit_set = set()
-        q = collections.deque()
+        q = deque()
 
         def bfs(r, c):
             if r<0 or c<0 or r>=ROWS or c>=COLS or grid[r][c] != 2147483647 or (r,c) in visit_set:
