@@ -9,19 +9,19 @@ class Solution:
         for c, p in prerequisites:
             prereqs[c].append(p)
         
-        def dfs(course, seen):
+        def dfs(course):
             if course in seen:
                 return True
             seen.add(course)
             for p in prereqs[course]:
-                if dfs(p, seen):
+                if dfs(p):
                     return True
             prereqs[course] = []
             seen.remove(course)
             return False
 
         for course in range(numCourses):
-            if dfs(course, seen):
+            if dfs(course):
                 return False
         return True
 
