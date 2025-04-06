@@ -1,11 +1,11 @@
 from typing import List
 from collections import defaultdict
 
-class Solution: 
+class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         if not n:
             return True
-        
+
         visit_set = set()
         hmap = defaultdict(list)
 
@@ -13,19 +13,18 @@ class Solution:
             hmap[n1].append(n2)
             hmap[n2].append(n1)
         
-        def dfs(i, prev):
-            if i in visit_set:
-                return False
-            
-            visit_set.add(i)
-            for j in hmap[i]:
-                if j == prev:
+        def dfs(node, prev):
+            if node in visit_set:
+                return True
+            visit_set.add(node)
+            for nei in hmap[node]:
+                if nei == prev:
                     continue
-                if dfs(j, i) == False:
-                    return False
-            return True
+                if dfs(nei, node): # if cycle detected
+                    return True
+            return False
         
-        return dfs(0, -1) and n == len(visit_set)
+        return not dfs(0, -1) and n == len(visit_set)
 
 a = Solution()
 print(a.validTree(5, [[0,1], [0,2], [0,3], [1,4]])) # True
