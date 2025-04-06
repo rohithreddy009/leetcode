@@ -3,31 +3,32 @@ from collections import defaultdict
 
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        prereqs = defaultdict(list)
+        hmap = defaultdict(list)
+        visit_set = set()
+        seen_set = set()
         res = []
-        visited = set()
-        seen = set()
 
         for c, p in prerequisites:
-            prereqs[c].append(p)
-
+            hmap[c].append(p)
+        
         def dfs(course):
-            if course in seen:
-                return False
-            if course in visited:
+            if course in visit_set:
                 return True
-            
-            seen.add(course)
-            for p in prereqs[course]:
-                if dfs(p) == False:
-                    return False
-            seen.remove(course)
-            visited.add(course)
-            res.append(course)
-            return True
+            if course in seen_set:
+                return False
+            else:
+                visit_set.add(course)
+                for p in hmap[course]:
+                    if dfs(p):
+                        return True
+                visit_set.remove(course)
+                seen_set.add(course)
+                res.append(course)
+                hmap[course] = []
+                return False
 
         for course in range(numCourses):
-            if not dfs(course):
+            if dfs(course):
                 return []
         return res
 
