@@ -15,7 +15,7 @@ class Solution:
                 stack.append(graph[stack[-1]].pop())
             res.append(stack.pop())
         
-        return reversed(res)
+        return list(reversed(res))
 
 a = Solution()
 # print(a.findItinerary([["MUC", "LHR"], ["JFK", "MUC"], ["SFO", "SJC"], ["LHR", "SFO"]]))        
