@@ -29,9 +29,6 @@ class Solution2:
         
         return -heapq.heappop(nums)
 
-a = Solution2()
-print(a.findKthLargest([3,2,1,5,6,4],2))
-
 class Solution3:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         minHeap = []
@@ -44,3 +41,32 @@ class Solution3:
                 # heapq.heappop(minHeap)
         
         return minHeap[0]
+
+class Solution3: # QuickSelect
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        k = len(nums) - k   # convert kth largest → kth smallest
+
+        def quickSelect(l, r):
+            pivot, p = nums[r], l
+
+            # Partition step
+            for i in range(l, r):
+                if nums[i] <= pivot:
+                    nums[p], nums[i] = nums[i], nums[p]
+                    p += 1
+
+            # Move pivot to final position
+            nums[p], nums[r] = nums[r], nums[p]
+
+            # Recurse into the correct side
+            if p > k:
+                return quickSelect(l, p - 1)
+            elif p < k:
+                return quickSelect(p + 1, r)
+            else:
+                return nums[p]
+
+        return quickSelect(0, len(nums) - 1)
+
+
+print(Solution3().findKthLargest([3, 0, 2, 1, 7, 6, 5, 8, 4], 6))
